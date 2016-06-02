@@ -39,5 +39,10 @@ end
 post '/new' do
   # получаем переменную из post- запроса
 name =  params[:post]
+  if name.length <= 0
+    @error = 'type post text'
+   return erb :new
+  end
+@db.execute 'insert into Posts (content, created_date) values (?, datetime())', [name]
   erb name
 end
