@@ -1,4 +1,2 @@
-sinatra-bootstrap-clean
+leprozorium lesson 28 review
 =======================
-
-Cleaned version of https://github.com/bootstrap-ruby/sinatra-bootstrap
