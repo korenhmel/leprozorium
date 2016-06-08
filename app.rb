@@ -50,3 +50,15 @@ name =  params[:post]
    redirect to '/'
   # erb name
 end
+
+get '/details/:fuckid' do
+  post_id = params[:fuckid]
+  #example2
+  results = @db.execute 'select * from Posts where id = ?', [post_id]
+   @row = results[0]
+  erb :details
+    #example1
+   # erb "Displaing information for post with id: #{post_id}"
+
+
+end
