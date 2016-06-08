@@ -70,3 +70,12 @@ get '/details/:fuckid' do
 
 
 end
+# обработчик пост запроса /details/...
+# (браузер отправляет данные на сервер, мы их принимаем)
+post '/details/:fuckid' do
+  post_id = params[:fuckid]
+
+  name =  params[:post]
+
+  erb "You typed comments #{name} for post #{post_id}"
+end
