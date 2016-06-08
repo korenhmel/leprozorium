@@ -46,5 +46,7 @@ name =  params[:post]
   end
 # сохранение данных в БД
 @db.execute 'insert into Posts (content, created_date) values (?, datetime())', [name]
-  erb name
+
+   redirect to '/'
+  # erb name
 end
