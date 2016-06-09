@@ -23,6 +23,14 @@ configure do
 id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ,
  created_date DATETIME,
  content TEXT)'
+
+    # создает таблицу если таблица не существует
+    @db.execute 'CREATE  TABLE IF NOT EXISTS Comments
+ (
+id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ,
+ created_date DATETIME,
+ content TEXT,
+ post_id integer)'
 end
 
 get '/' do
@@ -47,7 +55,6 @@ name =  params[:post]
 # сохранение данных в БД
 @db.execute 'insert into Posts (content, created_date) values (?, datetime())', [name]
 
-   redirect to '/'
   # erb name
 end
 
@@ -76,6 +83,17 @@ post '/details/:fuckid' do
   post_id = params[:fuckid]
 
   name =  params[:post]
+  @db.execute 'insert into Comments
+(content,
+ created_date,
+ post_id)
+ values
+(?,
+ datetime(),
+ ?)', [name, post_id]
 
-  erb "You typed comments #{name} for post #{post_id}"
+  # перенаправляем на главную страницу поста
+  redirect to ('/details/'+ post_id)
+
+  # erb "You typed comments #{name} for post #{post_id}"
 end
