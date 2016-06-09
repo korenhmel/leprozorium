@@ -7,7 +7,8 @@
 <% @comments.each do |comment| %>
 
   <p> <%= comment['content'] %></p>
-
+  <span style="font-size: 75%; color: #999"> added at: <%= comment['created_date'] %></span>
+  <hr/>
 <% end %>
 
 <form action="/details/<%= @row['id'] %>" method="POST">
