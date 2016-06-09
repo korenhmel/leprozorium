@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'sqlite3'
+
 # require "sinatra/reloader"
 def init_db
   @db = SQLite3::Database.new 'leprozorium.db'
@@ -54,7 +55,7 @@ name =  params[:post]
   end
 # сохранение данных в БД
 @db.execute 'insert into Posts (content, created_date) values (?, datetime())', [name]
-
+redirect to '/'
   # erb name
 end
 
@@ -72,8 +73,8 @@ get '/details/:fuckid' do
    @row = results[0]
 
    #выбираем комментарии для нашего поста
-  @comments = @db.execute 'select * from Comments where id = ?', [post_id]
-  
+   @comments  = @db.execute 'select * from Comments where post_id = ? order by id', [post_id]
+
   # возвращаем представление details.erb
   erb :details
     #example1
@@ -88,16 +89,20 @@ post '/details/:fuckid' do
 
   name =  params[:post]
   @db.execute 'insert into Comments
-(content,
- created_date,
- post_id)
- values
-(?,
- datetime(),
- ?)', [name, post_id]
+    (
+     content,
+     created_date,
+     post_id
+    )
+      values
+    (
+      ?,
+      datetime(),
+      ?
+    )', [name, post_id]
 
   # перенаправляем на главную страницу поста
-  redirect to ('/details/'+ post_id)
+  redirect to('/details/'+ post_id)
 
   # erb "You typed comments #{name} for post #{post_id}"
 end
