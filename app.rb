@@ -32,6 +32,14 @@ id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ,
  created_date DATETIME,
  content TEXT,
  post_id integer)'
+
+    @db.execute 'CREATE  TABLE IF NOT EXISTS Users
+ (
+id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ,
+ created_date DATETIME,
+ username TEXT,
+ password TEXT)'
+
 end
 
 get '/' do
@@ -114,6 +122,22 @@ end
 post '/user' do
   username = params['username']
   password = params['password']
-  @initials = "your name is #{username} and your password is #{password}"
+  hh = { username: 'your name', password: 'your password'}
+  @error ="Enter #{hh.select { |key, value| params[key] == "" }.values.join(", ")}"
+  if @error != ""
+   @initials = "You successily registered!!"
+  end
+  @db.execute 'insert into Users
+    (
+     username,
+     password,
+     created_date
+    )
+      values
+    (
+      ?,
+      ?,
+      datetime()
+    )', [username, password]
   erb :user_registration
 end
