@@ -124,10 +124,10 @@ post '/user' do
   password = params['password']
   hh = { username: 'your name', password: 'your password'}
   @error ="Enter #{hh.select { |key, value| params[key] == "" }.values.join(", ")}"
-  if @error != ""
-   @initials = "You successily registered!!"
-  end
-  @db.execute 'insert into Users
+  if @error.length == 6
+   @initials = "You successfully registered!!"
+
+   @db.execute 'insert into Users
     (
      username,
      password,
@@ -139,5 +139,7 @@ post '/user' do
       ?,
       datetime()
     )', [username, password]
+
+  end
   erb :user_registration
 end
