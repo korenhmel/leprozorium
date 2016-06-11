@@ -106,3 +106,14 @@ post '/details/:fuckid' do
 
   # erb "You typed comments #{name} for post #{post_id}"
 end
+
+get '/user' do
+  erb :user_registration
+end
+
+post '/user' do
+  username = params['username']
+  password = params['password']
+  @initials = "your name is #{username} and your password is #{password}"
+  erb :user_registration
+end
