@@ -1,0 +1,20 @@
+<h2 style="color:#084B8A;">Registered users only:</h2>
+
+<p style="color:green;"><%= @loginitials %></p>
+<form action="/login" method="POST" role="form">
+
+  <div class="form-group">
+    <label style="color:#084B8A;"> Enter your login:</label>
+    <input name="logusername" type="text" class="form-control" style="width: 250px" placeholder="login" value="<%= @logusername %>">
+  </div>
+
+  <div class="form-group">
+    <label style="color:#084B8A;">Enter your password:</label>
+    <input name="logpassword" type="password" class="form-control" style="width: 250px"  placeholder="Password">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Login</button>
+
+</form>
+<br/>
+<p  >If you are not registered yet: <a href="/user" >Registration</a></p>

@@ -70,6 +70,7 @@ end
 # вывод информации о посте
 get '/details/:fuckid' do
 
+
   # получаем переменную из url'a
   post_id = params[:fuckid]
 
@@ -120,8 +121,8 @@ get '/user' do
 end
 
 post '/user' do
-  username = params['username']
-  password = params['password']
+  @username = params['username']
+  @password = params['password']
   hh = { username: 'your name', password: 'your password'}
   @error ="Enter #{hh.select { |key, value| params[key] == "" }.values.join(", ")}"
   if @error.length == 6
@@ -138,8 +139,23 @@ post '/user' do
       ?,
       ?,
       datetime()
-    )', [username, password]
+    )', [@username, @password]
 
   end
   erb :user_registration
 end
+
+get '/login' do
+erb   :login
+end
+
+post '/login' do
+    @logusername = params['logusername']
+    @logpassword = params['logpassword']
+    hh = { logusername: 'your name', logpassword: 'your password'}
+    @error ="Enter #{hh.select { |key, value| params[key] == "" }.values.join(", ")}"
+    if @error.length == 6
+      @loginitials = "Your login is #{@logusername}, and your password is #{@logpassword}"
+    end
+  erb :login
+    end
