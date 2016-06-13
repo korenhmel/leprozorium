@@ -1,6 +1,12 @@
 <h2 style="color:#084B8A;">Registered users only:</h2>
 
+
 <p style="color:green;"><%= @loginitials %></p>
+
+<% @datausername.each do |row| %>
+  <p><%= row['username'] %></p>
+<% end %>
+
 <form action="/login" method="POST" role="form">
 
   <div class="form-group">
