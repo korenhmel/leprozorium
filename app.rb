@@ -147,7 +147,7 @@ end
 
 get '/login' do
 
-   erb :login
+  erb :login
 
 end
 
@@ -158,16 +158,22 @@ post '/login' do
     @error ="Enter #{hh.select { |key, value| params[key] == "" }.values.join(", ")}"
     if @error.length == 6
       @loginitials = "Your login is #{@logusername}, and your password is #{@logpassword}"
+        @log = 'incorrect'
+      @datausername = @db.execute 'select * from Users where username= ? order by id', [@logusername]
+      @datausername.each do |row|
+        if row['username'] == (@logusername)
+          @log = 'correct'
+        end
 
-       @datausername = @db.execute 'select * from Users order by id desc'
       end
-      # @log = datausername[0]
+      # if @datausername['username'].include?(@logusername)
 
+      # @log = datausername[0]
+    end
 
     # if @datausername.has_value?(@logusername)
     #   @correctusername = "correct login"
-    # else
-    #   @error = "wrong password!!"
+    # 
     #   end
 
 

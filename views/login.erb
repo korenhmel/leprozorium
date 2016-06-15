@@ -3,9 +3,11 @@
 
 <p style="color:green;"><%= @loginitials %></p>
 
-<% @datausername.each do |row| %>
-  <p><%= row['username'] %></p>
-<% end %>
+  <p><%= @log %></p>
+
+<br/>
+
+<br/>
 
 <form action="/login" method="POST" role="form">
 
@@ -22,5 +24,5 @@
   <button type="submit" class="btn btn-primary">Login</button>
 
 </form>
-<br/>
+
 <p  >If you are not registered yet: <a href="/user" >Registration</a></p>
