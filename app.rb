@@ -156,13 +156,14 @@ post '/login' do
     @logpassword = params['logpassword']
     hh = { logusername: 'your name', logpassword: 'your password'}
     @error ="Enter #{hh.select { |key, value| params[key] == "" }.values.join(", ")}"
-    if @error.length == 6
-      @loginitials = "Your login is #{@logusername}, and your password is #{@logpassword}"
-        @log = 'incorrect'
+    if @error.length <= 6
+        @log = '<p style="color:red;">Enter your login and password again.</p>'
+        @error = 'Incorrect login or password'
       @datausername = @db.execute 'select * from Users where username= ? order by id', [@logusername]
       @datausername.each do |row|
         if row['username'] == (@logusername)
-          @log = 'correct'
+          @log =  '<p style="color:green;"> Now you may do some comments !! </p>'
+          @error = ''
         end
 
       end
