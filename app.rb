@@ -1,6 +1,7 @@
 #encoding: utf-8
 require 'rubygems'
 require 'sinatra'
+require 'unicode'
 require 'sqlite3'
 
 # require "sinatra/reloader"
@@ -121,8 +122,10 @@ get '/user' do
 end
 
 post '/user' do
-  @username = params['username']
-  @password = params['password']
+  @username1 = params['username'].strip!
+  @username = Unicode::downcase(@username1)
+  @password1 = params['password'].strip!
+  @password = Unicode::downcase(@password1)
   hh = { username: 'your name', password: 'your password'}
   @error ="Enter #{hh.select { |key, value| params[key] == "" }.values.join(", ")}"
   if @error.length == 6
